@@ -3,6 +3,8 @@ Shader "Custom/fog"
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
+        _FogColor ("FogColor", Color) = (1, 1, 1, 1)
+        _FogStartValue ("FogStart", Range(0, 1)) = 0
     }
     SubShader
     {
@@ -40,12 +42,16 @@ Shader "Custom/fog"
             }
 
             sampler2D _MainTex;
+            fixed4 _FogColor;
+            float _FogStartValue;
 
             fixed4 frag(v2f i) : SV_Target
             {
-                half depth = SAMPLE_DEPTH_TEXTURE(_CameraDepthTexture, i.uv);
-                depth = LinearEyeDDepth(depth);
-                return depth;
+                half depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv));
+                fixed4 color = tex2D(_MainTex, i.uv);
+                color = lerp(color, _FogColor, (1 - depth) * (1 - depth));
+
+                return color;
             }
             ENDCG
         }
