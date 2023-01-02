@@ -6,41 +6,42 @@ Shader "Custom/MultiLighting"
     }
         SubShader
     {
-        Tags
+        Pass
         {
-            "LightMode" = "ForwardBase"
+            Tags
+            {
+                "LightMode" = "ForwardBase"
+            }
+
+            CGPROGRAM
+
+            #pragma vertex vert
+            #pragma fragment frag
+
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            #include "Library.cginc"
+            
+            ENDCG
         }
 
-        CGPROGRAM
-
-        #progma vertex vert
-        #progma fragment frag
-
-        #include "UnityCG.cginc"
-        #include "Lighting.cginc"
-
-        struct v2f
+        Pass
         {
-            float4 vertex : SV_POSITION;
-            float3 normal : TEXCOORD1;
-        };
+            Tags
+            {
+                "LightMode" = "ForwardAdd"
+            }
 
-        float4 _Color;
-        
-        v2f vert(appdata_base v)
-        {
-            v2f o;
+            CGPROGRAM
 
-            o.vertex = UnityObjectToClipPos(v.vertex);
-            o.normal = UnityObjectToWorldNormal(v.normal);
+            #pragma vertex vert
+            #pragma fragment frag
 
-            return o;
+            #include "UnityCG.cginc"
+            #include "Lighting.cginc"
+            #include "Library.cginc"
+
+            ENDCG
         }
-
-        fixed4 frag(v2f i) : SV_Target
-        {
-
-        }
-        ENDCG
     }
 }
