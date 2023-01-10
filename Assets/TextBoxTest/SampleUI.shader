@@ -16,7 +16,7 @@ Shader "Custom/Wobble"
         _StencilReadMask("Stencil Read Mask", Float) = 255
 
         // カラーマスクを設定できる
-        // RGBAがそれぞれ3,2,1,0ビット目を表すビットマスクを指定する
+        // RGBAがそれぞれ8, 4, 2, 1ビット目を表すビットマスクを指定する
         // 15 = 1111なのでRGBAすべてに書き込める
         _ColorMask("Color Mask", Float) = 15
 
