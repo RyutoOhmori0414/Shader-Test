@@ -337,7 +337,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _srcFactor: 1
-  _dstFactor: 0
+  _dstFactor: 1
   _blendOp: 0
 --- !u!114 &854162942
 MonoBehaviour:
