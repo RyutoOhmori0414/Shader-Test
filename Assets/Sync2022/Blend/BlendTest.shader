@@ -54,9 +54,9 @@ Shader "Custom/BlendTest"
             fixed4 frag (v2f i) : SV_Target
             {
                 // sample the texture
-                fixed4 col = i.color * tex2D(_MainTex, i.uv + _TextureSampleAdd);
+                float4 col = i.color * tex2D(_MainTex, i.uv + _TextureSampleAdd);
                 
-                return col;
+                return col * col.a;
             }
             ENDCG
         }
