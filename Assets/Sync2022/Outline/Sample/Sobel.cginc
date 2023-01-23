@@ -37,6 +37,14 @@ half sobel(sampler2D tex, float4 texTexelSize, float2 uv)
 
     half xLumi = l00 * -1.0 + l10 * -2.0 + l20 * -1.0 + l02 * 1.0 + l12 * 2.0 + l22 * 1.0;
     half yLumi = l00 * -1.0 + l01 * -2.0 + l02 * -1.0 + l20 * 1.0 + l21 * 2.0 + l22 * 1.0;
+    
+    half xAlpha = c00.a * -1.0 + c10.a * -2.0 + c20.a * -1.0 + c02.a * 1.0 + c12.a * 2.0 + c22.a * 1.0;
+    half yAlpha = c00.a * -1.0 + c01.a * -2.0 + c02.a * -1.0 + c20.a * 1.0 + c21.a * 2.0 + c22.a * 1.0;
+    
+    half outlinePow = sqrt(xLumi * xLumi + yLumi * yLumi);
+    half outlineAlpha = sqrt(xAlpha * xAlpha + yAlpha * yAlpha);
+    
+    return saturate(max(outlinePow, outlineAlpha));
 }
 
 #endif
