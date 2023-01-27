@@ -8,36 +8,58 @@ public class OutlineImage : MonoBehaviour
 {
     [SerializeField]
     Material _mat;
+    [SerializeField]
+    bool _isStatic = false;
 
-    Image _image;
+    RawImage _rawImage;
 
-    public Image Image
+    public RawImage RawImage
     {
         get 
         { 
-            if (_image == null)
+            if (_rawImage == null)
             {
-                _image = GetComponent<Image>();
+                _rawImage = GetComponent<RawImage>();
             } 
 
-            return _image;
+            return _rawImage;
+        }
+    }
+
+    private void Awake()
+    {
+        if (!Application.isPlaying)
+        {
+            return;
+        }
+
+        if (_isStatic)
+        {
+            Capture();
+        }
+    }
+
+    public void Capture()
+    {
+        if (TryGetComponent(out RawImage rawImage))
+        {
+            // TextureのサイズをもとにShaderを反映させたTextureを新たに生成している
+            Texture tex = RawImage.mainTexture;
+            float w = tex.width;
+            float h = tex.height;
+
+            RenderTexture rt = new RenderTexture((int)w, (int)h, 0, RenderTextureFormat.ARGBHalf);
+
+            Graphics.Blit(tex, rt, _mat);
+            rawImage.texture = rt;
+
+            _mat = null;
+            RawImage.material = null;
         }
     }
 
     private void OnValidate()
     {
-        if (TryGetComponent(out RawImage rawImage))
-        {
-            Texture tex = Image.mainTexture;
-            float w = (transform as RectTransform).rect.width;
-            float h = (transform as RectTransform).rect.height;
-
-            RenderTexture rt = new RenderTexture((int)w, (int)h, 0, RenderTextureFormat.ARGBHalf);
-            Graphics.Blit(tex, rt, _mat);
-            rawImage.texture = rt;
-
-            Destroy(_mat);
-            _mat = null;
-        }
+        RawImage.material = _mat;
     }
 }
