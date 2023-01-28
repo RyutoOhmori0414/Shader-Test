@@ -49,7 +49,7 @@ public class OutlineImage : MonoBehaviour
             float h = tex.height;
 
             RenderTexture rt = new RenderTexture((int)w, (int)h, 0, RenderTextureFormat.ARGBHalf);
-
+            // 元のテクスチャをシェーダでレンダリングするテクスチャへコピーする
             Graphics.Blit(tex, rt, _mat);
             rawImage.texture = rt;
 
