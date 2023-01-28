@@ -3,6 +3,7 @@ Shader "Custom/OutlineSample"
     Properties
     {
         [ParRendererData]_MainTex ("Texture", 2D) = "white" {}
+        [HDR]_Color ("Color", Color) = (1, 1, 1, 1)
     }
     SubShader
     {
@@ -45,7 +46,7 @@ Shader "Custom/OutlineSample"
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
                 o.uv = TRANSFORM_TEX(v.uv, _MainTex);
-                o.color = v.color;
+                o.color = v.color * _Color;
                 return o;
             }
 
