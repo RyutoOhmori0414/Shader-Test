@@ -5,7 +5,7 @@ Shader"Custom/Dissolve"
         [HDR]_Color ("Color", Color) = (1,1,1,1)
         [HDR]_DissolveColor ("DissolveColor", Color) =(1, 1, 1, 1)
         [ParRendererData]_MainTex ("Albedo (RGB)", 2D) = "white" {}
-        _DisolveTex ("DisolveTex", 2D) = "white" {}
+        _DissolveTex ("DisolveTex", 2D) = "white" {}
         _DissolveAmount ("DissolveAmount", Range(0, 1)) = 0.5
         _DissolveRange("DissolveRange", Range(0, 1)) = 0.5
     }
@@ -13,8 +13,7 @@ Shader"Custom/Dissolve"
     {
         Tags { "RenderType"="Opaque" }
         
-        blend
-        SrcAlpha OneMinusSrcAlpha
+        Blend One OneMinusSrcAlpha       
 
         Pass
         {
@@ -39,6 +38,7 @@ Shader"Custom/Dissolve"
             };
 
             sampler2D _MainTex;
+            fixed4 _TextureSampleAdd;
             sampler2D _DissolveTex;
             float4 _MainTex_ST;
             float4 _Color;
@@ -62,14 +62,16 @@ Shader"Custom/Dissolve"
 
             fixed4 frag(v2f i) : SV_Target
             {
-                float4 color = tex2D(_MainTex, i.uv);
+                float4 color = i.color * (tex2D(_MainTex, i.uv) + _TextureSampleAdd);
     
-                float DissolveAlpha = tex2D(_DissolveTex, i.uv).r;
+                float2 uv = i.uv;
+                half DissolveAlpha = tex2D(_DissolveTex, uv).r;
                 DissolveAlpha -= 0.001;
+                
                 _DissolveAmount = remap(_DissolveAmount, 0, 1, -_DissolveRange, 1);
                 if (DissolveAlpha < _DissolveAmount + _DissolveRange)
                 {
-                    color.rgb = _DissolveColor.rgb;
+                    color.rgb += _DissolveColor.rgb;
                 }
     
                 if (DissolveAlpha < _DissolveAmount)
