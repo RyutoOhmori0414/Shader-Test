@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_RimLight
-  m_Shader: {fileID: 4800000, guid: 3b32ec0480227ca42a3428a2a5557cb9, type: 3}
+  m_Name: M_Toon
+  m_Shader: {fileID: 4800000, guid: 58c5e3a654715e248a1704e65fffbf31, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -68,8 +68,8 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
+    - _OutlineWid: 0.0304
     - _Parallax: 0.02
-    - _RimPower: 0.438
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
@@ -78,5 +78,7 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
-    - _MainColor: {r: 0.7264151, g: 0.7264151, b: 0.7264151, a: 1}
+    - _MainColor: {r: 0.9811321, g: 0.9811321, b: 0.9811321, a: 1}
+    - _OutlineCol: {r: 0, g: 0, b: 0, a: 1}
+    - _ShadeColor: {r: 0.4716981, g: 0.4716981, b: 0.4716981, a: 1}
   m_BuildTextureStacks: []
