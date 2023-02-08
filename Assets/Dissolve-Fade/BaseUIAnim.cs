@@ -24,7 +24,7 @@ public class BaseUIAnim : MonoBehaviour, IMaterialModifier
         }
     }
 
-    // material‚ª
+    // SetMaterialDirty‚ªŒÄ‚Î‚ê‚½‚çs‚¤
     public Material GetModifiedMaterial(Material baseMaterial)
     {
         if (!isActiveAndEnabled || !_animGraphic)
@@ -32,6 +32,7 @@ public class BaseUIAnim : MonoBehaviour, IMaterialModifier
             return baseMaterial;
         }
 
+        Debug.Log("GetModifiedMaterial(Material baseMaterial)‚ªŒÄ‚Î‚ê‚Ü‚µ‚½");
         UpdateMaterial(baseMaterial);
         return material;
     }
@@ -44,6 +45,7 @@ public class BaseUIAnim : MonoBehaviour, IMaterialModifier
         }
 
         _animGraphic.SetMaterialDirty();
+        Debug.Log("OnDidApplyAnimationProperties()‚ªŒÄ‚Î‚ê‚Ü‚µ‚½");
     }
 
     protected virtual void UpdateMaterial(Material baseMaterial)
