@@ -1,10 +1,9 @@
-Shader "Custom/fog"
+Shader "ImageEffect/Sepia"
 {
     Properties
     {
         _MainTex ("Texture", 2D) = "white" {}
-        _FogColor ("FogColor", Color) = (1, 1, 1, 1)
-        _FogStartValue ("FogStart", Range(0, 1)) = 0
+        _SepiaColer ("SepiaColer", Color) = (0.19, -0.05, -0.22)
     }
     SubShader
     {
@@ -31,8 +30,6 @@ Shader "Custom/fog"
                 float4 vertex : SV_POSITION;
             };
 
-            sampler2D _CameraDepthTexture;
-
             v2f vert (appdata v)
             {
                 v2f o;
@@ -42,15 +39,15 @@ Shader "Custom/fog"
             }
 
             sampler2D _MainTex;
-            fixed4 _FogColor;
-            float _FogStartValue;
-            fixed4 frag(v2f i) : SV_Target
-            {
-                half depth = UNITY_SAMPLE_DEPTH(tex2D(_CameraDepthTexture, i.uv));
-                fixed4 color = tex2D(_MainTex, i.uv);
-                color = lerp(color, _FogColor, (1 - depth) * (1 - depth));
+            uniform float4 _SepiaColer;
 
-                return color;
+            fixed4 frag (v2f i) : SV_Target
+            {
+                fixed4 col = tex2D(_MainTex, i.uv);
+                // ‹P“x•ÏŠ·‚·‚é
+                half l = dot(col.rgb, half3(0.30, 0.59, 0.11));
+                col.rgb = saturate(l + _SepiaColer.rgb);
+                return col;
             }
             ENDCG
         }

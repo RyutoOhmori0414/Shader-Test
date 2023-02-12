@@ -7,8 +7,8 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: M_Frenel
-  m_Shader: {fileID: 4800000, guid: 0f0573eecef70374988fd18ab9461e19, type: 3}
+  m_Name: M_Sepia
+  m_Shader: {fileID: 4800000, guid: 83d49c0237d0dcb488862175f3d053b8, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
   m_LightmapFlags: 4
@@ -77,4 +77,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
+    - _SepiaColer: {r: 0.18999997, g: 0, b: 0, a: 1}
   m_BuildTextureStacks: []

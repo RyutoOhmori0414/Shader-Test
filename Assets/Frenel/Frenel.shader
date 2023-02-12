@@ -32,7 +32,7 @@ Shader "Custom/Frenel"
             {
                 v2f o;
                 o.vertex = UnityObjectToClipPos(v.vertex);
-                o.uv = TRANSFORM_TEX(v.uv, _MainTex);
+                o.uv = TRANSFORM_TEX(v.texcoord, _MainTex);
     
                 return o;
             }
